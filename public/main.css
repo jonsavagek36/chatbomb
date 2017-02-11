@@ -25,7 +25,32 @@ body {
   top: 1px;
 }
 
-#top {
+#login-img {
+  width: 20%;
+  height: auto;
+}
+
+#setup-form {
+  position: relative;
+  top: 20%;
+  left: 10%;
+}
+.label {
+  display: inline-block;
+  float: left;
+  clear: left;
+  width: 150px;
+  text-align: right;
+  font-family: "Futura", sans-serif;
+  font-size: 16px;
+}
+.f-right {
+  display: inline-block;
+  float: left;
+  padding-left: 10px;
+}
+
+.top {
   font-family: "Futura", sans-serif;
   font-size: 28px;
   font-style: italic;
