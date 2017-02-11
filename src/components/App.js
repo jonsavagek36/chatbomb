@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ChatBox from './ChatBox';
-import OptionDisplay from './OptionDisplay';
 import Friendlist from './Friendlist';
 
 import io from 'socket.io-client';
