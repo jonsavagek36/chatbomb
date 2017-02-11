@@ -21516,10 +21516,6 @@
 
 	var _ChatBox2 = _interopRequireDefault(_ChatBox);
 
-	var _OptionDisplay = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./OptionDisplay\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	var _OptionDisplay2 = _interopRequireDefault(_OptionDisplay);
-
 	var _Friendlist = __webpack_require__(184);
 
 	var _Friendlist2 = _interopRequireDefault(_Friendlist);
