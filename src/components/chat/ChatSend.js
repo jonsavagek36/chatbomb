@@ -8,7 +8,9 @@ class ChatSend extends Component {
 
   render() {
     return (
-      <div>
+      <div id='chat-send'>
+        <input type='text' id='send-chat' onChange={this.props.sendLiveChange} />
+        <button id='send-btn' onClick={this.props.sendMessage}>SEND</button>
       </div>
     );
   }

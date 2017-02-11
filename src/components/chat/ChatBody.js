@@ -7,8 +7,24 @@ class ChatBody extends Component {
   }
 
   render() {
+    let conversation;
+    if (this.props.conversation !== undefined) {
+      conversation = this.props.conversation.map((msg, idx) => {
+        return (
+          <li key={idx}>
+            {msg.sender_name}: {msg.message}
+          </li>
+        );
+      });
+    } else {
+      conversation = [''];
+    }
+
     return (
-      <div>
+      <div id='chat-body'>
+        <ul className='no-bullets'>
+          {conversation}
+        </ul>
       </div>
     );
   }

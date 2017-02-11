@@ -7,8 +7,13 @@ class NamePlate extends Component {
   }
 
   render() {
+    let bomb = null;
+    if (this.props.live) {
+      bomb = <img src={'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png'} className='mini-bomb' />;
+    }
     return (
-      <div>
+      <div className={this.props.newClass} onClick={this.props.selectFriend}>
+        {this.props.friend.screen_name}{bomb}
       </div>
     );
   }
