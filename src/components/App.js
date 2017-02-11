@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
+
 import ChatBox from './ChatBox';
 import Friendlist from './Friendlist';
 
@@ -210,7 +212,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div id='top'>
+        <div className='top'>
           CHATBOMB <br />
           <span className='points'>{this.state.points}</span>
         </div>
