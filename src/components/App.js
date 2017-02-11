@@ -213,11 +213,6 @@ class App extends Component {
         <div id='top'>
           CHATBOMB <br />
           <span className='points'>{this.state.points}</span>
-          <button className='top-btn' onClick={this.userOne}>User1</button>
-          <button className='top-btn' onClick={this.userTwo}>User2</button>
-          <button className='top-btn' onClick={this.userThree}>User3</button>
-          <button className='top-btn' onClick={this.startTest}>Start</button>
-          <button className='top-btn' onClick={this.refreshRequest}>Refresh</button>
         </div>
         <div id='main-div'>
           <ChatBox
