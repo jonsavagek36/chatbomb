@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import FriendsHeader from './friends/FriendsHeader';
+import FriendsBody from './friends/FriendsBody';
 
 class Friendlist extends Component {
   constructor(props) {
@@ -8,7 +10,16 @@ class Friendlist extends Component {
 
   render() {
     return (
-      <div>
+      <div id='friend-list'>
+        <FriendsHeader
+          profile={this.props.profile}
+            />
+        <FriendsBody
+          online_friends={this.props.online_friends}
+          selectFriend={this.props.selectFriend}
+          selectedFriend={this.props.selectedFriend}
+          liveMessages={this.props.liveMessages}
+            />
       </div>
     );
   }
