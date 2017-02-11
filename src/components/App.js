@@ -44,7 +44,42 @@ class App extends Component {
 
   componentDidMount() {
     // INIT
-    // this.clientInit();
+    let _ = this;
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        FB.api('/me?fields=id', function(response) {
+          let fetchBody = {
+            facebook_id: response.id
+          };
+          let myHeaders = new Headers();
+          myHeaders.append('Access-Control-Allow-Origin','*');
+          myHeaders.append('Content-Type','application/json');
+          fetch(`http://localhost:3000/api/v1/users/sign_in`, {
+            method: 'POST',
+            body: JSON.stringify(fetchBody),
+            headers: myHeaders
+          })
+            .then(response => {
+              if (response.ok) {
+                return response;
+              } else {
+                console.log('Failed to sign in.');
+              }
+            })
+            .then(response => response.json())
+            .then(data => {
+              let user = {
+                id: data.id,
+                facebook_pic: data.facebook_pic,
+                screen_name: data.screen_name,
+                email: data.email
+              };
+              _.setState({ profile: user });
+              _.clientInit();
+            })
+        });
+      }
+    });
     // INCOMING EVENTS
     socket.on('connect:good', this.goodConnect);
     socket.on('test:message', this.testMessage);

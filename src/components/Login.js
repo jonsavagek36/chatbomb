@@ -7,6 +7,62 @@ class Login extends Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '206542439812995',
+        cookie: true,
+        xfbml: true,
+        version: 'v2.8'
+      });
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          this.isNewUser();
+        }
+      });
+    }
+  }
+
+  userLogin() {
+    FB.login(function(response) {
+      if (response.status === 'connected') {
+        this.isNewUser();
+      }
+    }, { scope: 'public_profile' });
+  }
+
+  isNewUser() {
+    FB.api('/me?fields=id', function(response) {
+      let fb_id = response.id;
+      let fetchBody = {
+        facebook_id: fb_id
+      };
+      let myHeaders = new Headers();
+      myHeaders.append('Access-Control-Allow-Origin','*');
+      myHeaders.append('Content-Type','application/json');
+      fetch(`http://localhost:3000/api/v1/users/new_user`, {
+        method: 'POST',
+        body: JSON.stringify(fetchBody),
+        headers: myHeaders
+      })
+        .then(response => {
+          if (response.ok) {
+            return response;
+          } else {
+            console.log('New User Check failed.');
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.new_user) {
+            browserHistory.push('/setup');
+          } else {
+            browserHistory.push('/chatbomb');
+          }
+        })
+    });
+  }
+
   render() {
     return (
       <div>
@@ -15,7 +71,7 @@ class Login extends Component {
         </div>
         <div id='main-div'>
           <div id='fb-login'>
-            <a href='#'>
+            <a href='#' onClick={this.userLogin}>
               <img src={'http://www.freeiconspng.com/uploads/facebook-login-button-png-11.png'} id='login-img' />
             </a>
           </div>
