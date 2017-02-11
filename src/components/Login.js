@@ -8,6 +8,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    let _ = this;
     window.fbAsyncInit = function() {
       FB.init({
         appId: '206542439812995',
@@ -17,7 +18,35 @@ class Login extends Component {
       });
       FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
-          this.isNewUser();
+          FB.api('/me?fields=id', function(response) {
+            let fb_id = response.id;
+            let fetchBody = {
+              facebook_id: fb_id
+            };
+            let myHeaders = new Headers();
+            myHeaders.append('Access-Control-Allow-Origin','*');
+            myHeaders.append('Content-Type','application/json');
+            fetch(`http://localhost:3000/api/v1/users/new_user`, {
+              method: 'POST',
+              body: JSON.stringify(fetchBody),
+              headers: myHeaders
+            })
+              .then(response => {
+                if (response.ok) {
+                  return response;
+                } else {
+                  console.log('New User Check failed.');
+                }
+              })
+              .then(response => response.json())
+              .then(data => {
+                if (data.new_user == true) {
+                  browserHistory.push('/setup');
+                } else {
+                  browserHistory.push('/chatbomb');
+                }
+              })
+          });
         }
       });
     }
@@ -26,41 +55,37 @@ class Login extends Component {
   userLogin() {
     FB.login(function(response) {
       if (response.status === 'connected') {
-        this.isNewUser();
+        FB.api('/me?fields=id', function(response) {
+          let fb_id = response.id;
+          let fetchBody = {
+            facebook_id: fb_id
+          };
+          let myHeaders = new Headers();
+          myHeaders.append('Access-Control-Allow-Origin','*');
+          myHeaders.append('Content-Type','application/json');
+          fetch(`http://localhost:3000/api/v1/users/new_user`, {
+            method: 'POST',
+            body: JSON.stringify(fetchBody),
+            headers: myHeaders
+          })
+            .then(response => {
+              if (response.ok) {
+                return response;
+              } else {
+                console.log('New User Check failed.');
+              }
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.new_user == true) {
+                browserHistory.push('/setup');
+              } else {
+                browserHistory.push('/chatbomb');
+              }
+            })
+        });
       }
     }, { scope: 'public_profile' });
-  }
-
-  isNewUser() {
-    FB.api('/me?fields=id', function(response) {
-      let fb_id = response.id;
-      let fetchBody = {
-        facebook_id: fb_id
-      };
-      let myHeaders = new Headers();
-      myHeaders.append('Access-Control-Allow-Origin','*');
-      myHeaders.append('Content-Type','application/json');
-      fetch(`http://localhost:3000/api/v1/users/new_user`, {
-        method: 'POST',
-        body: JSON.stringify(fetchBody),
-        headers: myHeaders
-      })
-        .then(response => {
-          if (response.ok) {
-            return response;
-          } else {
-            console.log('New User Check failed.');
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.new_user) {
-            browserHistory.push('/setup');
-          } else {
-            browserHistory.push('/chatbomb');
-          }
-        })
-    });
   }
 
   render() {

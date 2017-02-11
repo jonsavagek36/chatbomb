@@ -5,6 +5,7 @@ class Setup extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.registerNewUser = this.registerNewUser.bind(this);
   }
 
   registerNewUser() {
@@ -24,7 +25,7 @@ class Setup extends Component {
         method: 'POST',
         body: JSON.stringify(fetchBody),
         headers: myHeaders
-      })
+      }) 
         .then(response => {
           if (response.ok) {
             return response;
@@ -34,7 +35,7 @@ class Setup extends Component {
         })
         .then(response => response.json())
         .then(data => {
-          if (data.success) {
+          if (data.success == true) {
             browserHistory.push('/chatbomb');
           }
         })
