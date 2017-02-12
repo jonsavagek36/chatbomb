@@ -13,6 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       profile: {},
+      requests: [],
       friends: [],
       online_friends: [],
       selectedFriend: {},
@@ -69,18 +70,23 @@ class App extends Component {
             .then(response => response.json())
             .then(data => {
               console.log(data);
-              // if (data.success) {
-              //   let user = {
-              //     id: data.id,
-              //     facebook_pic: data.facebook_pic,
-              //     screen_name: data.screen_name,
-              //     email: data.email
-              //   };
-              //   _.setState({ profile: user });
-              //   _.clientInit();
-              // } else {
-              //   browserHistory.push('/setup');
-              // }
+              if (data.success == true) {
+                let user = {
+                  id: data.user.id,
+                  facebook_pic: data.user.facebook_pic,
+                  screen_name: data.user.screen_name,
+                  email: data.user.email,
+                  points: data.user.points
+                };
+                _.setState({
+                  profile: user,
+                  requests: data.requests,
+                  friends: data.friends
+                });
+                _.clientInit();
+              } else {
+                browserHistory.push('/setup');
+              }
             })
         });
       }
