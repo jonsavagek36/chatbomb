@@ -26886,6 +26886,7 @@
 
 	    _this.state = {
 	      profile: {},
+	      requests: [],
 	      friends: [],
 	      online_friends: [],
 	      selectedFriend: {},
@@ -26944,18 +26945,23 @@
 	              return response.json();
 	            }).then(function (data) {
 	              console.log(data);
-	              // if (data.success) {
-	              //   let user = {
-	              //     id: data.id,
-	              //     facebook_pic: data.facebook_pic,
-	              //     screen_name: data.screen_name,
-	              //     email: data.email
-	              //   };
-	              //   _.setState({ profile: user });
-	              //   _.clientInit();
-	              // } else {
-	              //   browserHistory.push('/setup');
-	              // }
+	              if (data.success == true) {
+	                var user = {
+	                  id: data.user.id,
+	                  facebook_pic: data.user.facebook_pic,
+	                  screen_name: data.user.screen_name,
+	                  email: data.user.email,
+	                  points: data.user.points
+	                };
+	                _.setState({
+	                  profile: user,
+	                  requests: data.requests,
+	                  friends: data.friends
+	                });
+	                _.clientInit();
+	              } else {
+	                _reactRouter.browserHistory.push('/setup');
+	              }
 	            });
 	          });
 	        }
@@ -27682,8 +27688,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'friends-header' },
-	        this.props.profile.screen_name,
-	        ' Friends'
+	        _react2.default.createElement('img', { src: this.props.profile.facebook_pic, className: 'user-pic' }),
+	        this.props.profile.screen_name
 	      );
 	    }
 	  }]);
@@ -27822,6 +27828,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: this.props.newClass, onClick: this.props.selectFriend },
+	        _react2.default.createElement('img', { src: this.props.friend.facebook_pic, className: 'user-pic' }),
 	        this.props.friend.screen_name,
 	        bomb
 	      );

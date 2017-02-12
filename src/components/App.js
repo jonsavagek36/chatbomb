@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 import ChatBox from './ChatBox';
 import Friendlist from './Friendlist';
@@ -66,7 +66,7 @@ class App extends Component {
               } else {
                 console.log('Failed to sign in.');
               }
-            }) 
+            })
             .then(response => response.json())
             .then(data => {
               console.log(data);
@@ -233,6 +233,18 @@ class App extends Component {
     }
   }
 
+  toRequests() {
+    browserHistory.push('/requests');
+  }
+
+  logoutUser() {
+    FB.logout(function(response) {
+      if (response.status !== 'connected') {
+        browserHistory.push('/');
+      }
+    });
+  }
+
   // LOAD TEST CASES
   userOne() {
     this.setState({
@@ -262,6 +274,10 @@ class App extends Component {
         <div className='top'>
           CHATBOMB <br />
           <span className='points'>{this.state.points}</span>
+          <span className='menu'>
+            <button onClick={this.toRequests}>Requests</button>
+            <button onClick={this.logoutUser}>Log Out</button>
+          </span>
         </div>
         <div id='main-div'>
           <ChatBox

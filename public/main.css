@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #FF0000;
+  background-color: #79002A;
 }
 #main-div {
   width: 100%;
@@ -65,8 +65,8 @@ body {
   top: 10px;
 }
 .top-btn {
-  background-color: #FF0000;
-  border: #FF0000 solid 1px;
+  background-color: #79002A;
+  border: #79002A solid 1px;
   color: #FB5555;
 }
 
@@ -77,8 +77,8 @@ body {
   height: 315px;
   width: 395px;
   background-color: #FFFFFF;
-  border: #FF0000 solid 3px;
-  border-bottom: #FF0000 solid 2px;
+  border: #79002A solid 3px;
+  border-bottom: #79002A solid 2px;
   color: #000000;
 }
 
@@ -88,7 +88,7 @@ body {
   left: 0px;
   width: 395px;
   height: 40px;
-  background-color: #FF0000;
+  background-color: #79002A;
   font-family: "Futura", sans-serif;
   font-size: 14px;
   color: #FFFFFF;
@@ -139,7 +139,7 @@ body {
 #send-chat {
   height: 34px;
   width: 335px;
-  border: #FF0000 solid 1px;
+  border: #79002A solid 1px;
   margin: 0px;
   font-size: 14px;
   font-family: "Futura", sans-serif;
@@ -150,9 +150,9 @@ body {
   height: 38px;
   width: 53px;
   bottom: 1px;
-  border: #FF0000 solid 2px;
+  border: #79002A solid 2px;
   background-color: #FFFFFF;
-  color: #FF0000;
+  color: #79002A;
   margin: 0px;
   margin-left: 1px;
 }
@@ -164,8 +164,8 @@ body {
   height: 420px;
   width: 290px;
   background-color: #FFFFFF;
-  border: #FF0000 solid 3px;
-  border-bottom: #FF0000 solid 1px;
+  border: #79002A solid 3px;
+  border-bottom: #79002A solid 1px;
   font-size: 10px;
   color: #000000;
 }
@@ -176,7 +176,7 @@ body {
   left: 0px;
   width: 100%;
   height: 40px;
-  background-color: #FF0000;
+  background-color: #79002A;
   font-family: "Futura", sans-serif;
   font-size: 14px;
   color: #FFFFFF;
