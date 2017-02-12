@@ -66,7 +66,7 @@ class App extends Component {
               } else {
                 console.log('Failed to sign in.');
               }
-            })
+            }) 
             .then(response => response.json())
             .then(data => {
               console.log(data);

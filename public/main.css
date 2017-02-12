@@ -197,6 +197,11 @@ body {
   font-family: "Futura", sans-serif;
 }
 
+.user-pic {
+  width: 35px;
+  height: 35px;
+}
+
 .name-plate-selected {
   padding-top: 5px;
   padding-left: 5px;

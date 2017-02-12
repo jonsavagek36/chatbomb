@@ -9,7 +9,8 @@ class FriendsHeader extends Component {
   render() {
     return (
       <div id='friends-header'>
-        {this.props.profile.screen_name} Friends
+        <img src={this.props.profile.facebook_pic} className='user-pic' />
+        {this.props.profile.screen_name}
       </div>
     );
   }
