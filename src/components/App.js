@@ -66,7 +66,7 @@ class App extends Component {
               } else {
                 console.log('Failed to sign in.');
               }
-            }) 
+            })
             .then(response => response.json())
             .then(data => {
               console.log(data);
@@ -233,6 +233,18 @@ class App extends Component {
     }
   }
 
+  toRequests() {
+    browserHistory.push('/requests');
+  }
+
+  logoutUser() {
+    FB.logout(function(response) {
+      if (response.status !== 'connected') {
+        browserHistory.push('/');
+      }
+    });
+  }
+
   // LOAD TEST CASES
   userOne() {
     this.setState({
@@ -261,7 +273,11 @@ class App extends Component {
       <div>
         <div className='top'>
           CHATBOMB <br />
-          <span className='points'>{this.state.points}</span>
+          <div className='points'>{this.state.points}</div>
+          <div className='menu'>
+            <button onClick={this.toRequests} className='menu-btn'>Requests</button>
+            <button onClick={this.logoutUser} className='menu-btn-right'>Log Out</button>
+          </div>
         </div>
         <div id='main-div'>
           <ChatBox

@@ -68,6 +68,10 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
+	var _Requests = __webpack_require__(298);
+
+	var _Requests2 = _interopRequireDefault(_Requests);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_reactDom2.default.render(_react2.default.createElement(
@@ -75,7 +79,8 @@
 	  { history: _reactRouter.browserHistory },
 	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Login2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/setup', component: _Setup2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/chatbomb', component: _App2.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: '/chatbomb', component: _App2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/requests', component: _Requests2.default })
 	), document.getElementById('app'));
 
 /***/ },
@@ -26886,6 +26891,7 @@
 
 	    _this.state = {
 	      profile: {},
+	      requests: [],
 	      friends: [],
 	      online_friends: [],
 	      selectedFriend: {},
@@ -26944,18 +26950,23 @@
 	              return response.json();
 	            }).then(function (data) {
 	              console.log(data);
-	              // if (data.success) {
-	              //   let user = {
-	              //     id: data.id,
-	              //     facebook_pic: data.facebook_pic,
-	              //     screen_name: data.screen_name,
-	              //     email: data.email
-	              //   };
-	              //   _.setState({ profile: user });
-	              //   _.clientInit();
-	              // } else {
-	              //   browserHistory.push('/setup');
-	              // }
+	              if (data.success == true) {
+	                var user = {
+	                  id: data.user.id,
+	                  facebook_pic: data.user.facebook_pic,
+	                  screen_name: data.user.screen_name,
+	                  email: data.user.email,
+	                  points: data.user.points
+	                };
+	                _.setState({
+	                  profile: user,
+	                  requests: data.requests,
+	                  friends: data.friends
+	                });
+	                _.clientInit();
+	              } else {
+	                _reactRouter.browserHistory.push('/setup');
+	              }
 	            });
 	          });
 	        }
@@ -27120,6 +27131,20 @@
 	        this.chatBomb();
 	      }
 	    }
+	  }, {
+	    key: 'toRequests',
+	    value: function toRequests() {
+	      _reactRouter.browserHistory.push('/requests');
+	    }
+	  }, {
+	    key: 'logoutUser',
+	    value: function logoutUser() {
+	      FB.logout(function (response) {
+	        if (response.status !== 'connected') {
+	          _reactRouter.browserHistory.push('/');
+	        }
+	      });
+	    }
 
 	    // LOAD TEST CASES
 
@@ -27164,9 +27189,23 @@
 	          'CHATBOMB ',
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
-	            'span',
+	            'div',
 	            { className: 'points' },
 	            this.state.points
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'menu' },
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.toRequests, className: 'menu-btn' },
+	              'Requests'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.logoutUser, className: 'menu-btn-right' },
+	              'Log Out'
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -27682,8 +27721,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'friends-header' },
-	        this.props.profile.screen_name,
-	        ' Friends'
+	        _react2.default.createElement('img', { src: this.props.profile.facebook_pic, className: 'user-pic' }),
+	        this.props.profile.screen_name
 	      );
 	    }
 	  }]);
@@ -27822,6 +27861,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: this.props.newClass, onClick: this.props.selectFriend },
+	        _react2.default.createElement('img', { src: this.props.friend.facebook_pic, className: 'user-pic' }),
 	        this.props.friend.screen_name,
 	        bomb
 	      );
@@ -36510,6 +36550,279 @@
 	};
 
 
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(178);
+
+	var _RequestList = __webpack_require__(299);
+
+	var _RequestList2 = _interopRequireDefault(_RequestList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Requests = function (_Component) {
+	  _inherits(Requests, _Component);
+
+	  function Requests(props) {
+	    _classCallCheck(this, Requests);
+
+	    var _this = _possibleConstructorReturn(this, (Requests.__proto__ || Object.getPrototypeOf(Requests)).call(this, props));
+
+	    _this.state = {
+	      requests: {},
+	      request_email: '',
+	      facebook_id: '',
+	      send_status: '',
+	      accept_status: ''
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Requests, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _ = this;
+	      FB.getLoginStatus(function (response) {
+	        if (response.status === 'connected') {
+	          FB.api('/me?fields=id', function (response) {
+	            _.setState({ facebook_id: response.id });
+	            var fetchBody = {
+	              facebook_id: response.id
+	            };
+	            var myHeaders = new Headers();
+	            myHeaders.append('Access-Control-Allow-Origin', '*');
+	            myHeaders.append('Content-Type', 'application/json');
+	            fetch('http://localhost:3000/api/v1/requests/get_requests', {
+	              method: 'POST',
+	              body: JSON.stringify(fetchBody),
+	              headers: myHeaders
+	            }).then(function (response) {
+	              if (response.ok) {
+	                return response;
+	              } else {
+	                console.log('Failed to fetch requests.');
+	              }
+	            }).then(function (response) {
+	              return response.json();
+	            }).then(function (data) {
+	              _.setState({ requests: data.requests });
+	            });
+	          });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'sendRequest',
+	    value: function sendRequest() {
+	      var _ = this;
+	      _.setState({ request_email: document.getElementById('req-email').value });
+	      var fetchBody = {
+	        facebook_id: this.state.facebook_id,
+	        request_email: this.state.request_email
+	      };
+	      var myHeaders = new Headers();
+	      myHeaders.append('Access-Control-Allow-Origin', '*');
+	      myHeaders.append('Content-Type', 'application/json');
+	      fetch('http://localhost:3000/api/v1/requests/send_request', {
+	        method: 'POST',
+	        body: JSON.stringify(fetchBody),
+	        headers: myHeaders
+	      }).then(function (response) {
+	        if (response.ok) {
+	          return response;
+	        } else {
+	          console.log('Failed to send request.');
+	        }
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (data) {
+	        _.setState({ request_status: data.message });
+	      });
+	    }
+	  }, {
+	    key: 'acceptRequest',
+	    value: function acceptRequest(id) {
+	      var _ = this;
+	      var fetchBody = {
+	        request_id: id
+	      };
+	      var myHeaders = new Headers();
+	      myHeaders.append('Access-Control-Allow-Origin', '*');
+	      myHeaders.append('Content-Type', 'application/json');
+	      fetch('http://localhost:3000/api/v1/requests/accept_request', {
+	        method: 'POST',
+	        body: JSON.stringify(fetchBody),
+	        headers: myHeaders
+	      }).then(function (response) {
+	        if (response.ok) {
+	          return response;
+	        } else {
+	          console.log('Failed to accept request.');
+	        }
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (data) {
+	        _.setState({ accept_status: data.message });
+	      });
+	    }
+	  }, {
+	    key: 'goBack',
+	    value: function goBack() {
+	      _reactRouter.browserHistory.push('/chatbomb');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'top' },
+	          'CHATBOMB',
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'menu' },
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.goBack, className: 'menu-btn' },
+	              'Go Back'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'main-div' },
+	          _react2.default.createElement(_RequestList2.default, {
+	            requests: this.state.requests,
+	            acceptRequest: this.acceptRequest
+	          }),
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'send-request' },
+	            _react2.default.createElement(
+	              'form',
+	              { id: 'request-form' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'label' },
+	                'User E-Mail:'
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'f-right' },
+	                _react2.default.createElement('input', { type: 'text', id: 'req-email' })
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'label' },
+	                _react2.default.createElement(
+	                  'button',
+	                  { onClick: this.sendRequest, className: 'menu-btn-rr' },
+	                  'Send Request'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement('div', { id: 'request-status' })
+	          ),
+	          _react2.default.createElement('img', { src: 'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png', id: 'bomb-img' })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Requests;
+	}(_react.Component);
+
+	exports.default = Requests;
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var RequestList = function (_Component) {
+	  _inherits(RequestList, _Component);
+
+	  function RequestList(props) {
+	    _classCallCheck(this, RequestList);
+
+	    var _this = _possibleConstructorReturn(this, (RequestList.__proto__ || Object.getPrototypeOf(RequestList)).call(this, props));
+
+	    _this.state = {};
+	    return _this;
+	  }
+
+	  _createClass(RequestList, [{
+	    key: 'render',
+	    value: function render() {
+	      var requests = null;
+	      // if (this.props.requests != null) {
+	      //   requests = this.props.requests.map((request, idx) => {
+	      //     let acceptRequest = () => {
+	      //       this.props.acceptRequest(request.id);
+	      //     }
+	      //     return (
+	      //       <li className='request-li' key={idx}>
+	      //         <img src={request.facebook_pic} className='user-pic' />
+	      //           {request.screen_name}
+	      //           <button onClick={acceptRequest}>ACCEPT</button>
+	      //       </li>
+	      //     );
+	      //   });
+	      // }
+	      return _react2.default.createElement(
+	        'div',
+	        { id: 'request-list' },
+	        requests
+	      );
+	    }
+	  }]);
+
+	  return RequestList;
+	}(_react.Component);
+
+	exports.default = RequestList;
 
 /***/ }
 /******/ ]);
