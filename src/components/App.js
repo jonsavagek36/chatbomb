@@ -68,18 +68,19 @@ class App extends Component {
             })
             .then(response => response.json())
             .then(data => {
-              if (data.success) {
-                let user = {
-                  id: data.id,
-                  facebook_pic: data.facebook_pic,
-                  screen_name: data.screen_name,
-                  email: data.email
-                };
-                _.setState({ profile: user });
-                _.clientInit();
-              } else {
-                browserHistory.push('/setup');
-              }
+              console.log(data);
+              // if (data.success) {
+              //   let user = {
+              //     id: data.id,
+              //     facebook_pic: data.facebook_pic,
+              //     screen_name: data.screen_name,
+              //     email: data.email
+              //   };
+              //   _.setState({ profile: user });
+              //   _.clientInit();
+              // } else {
+              //   browserHistory.push('/setup');
+              // }
             })
         });
       }

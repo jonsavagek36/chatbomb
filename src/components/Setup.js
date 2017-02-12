@@ -4,19 +4,25 @@ import { browserHistory } from 'react-router';
 class Setup extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      setup_sn: '',
+      setup_email: ''
+    };
     this.registerNewUser = this.registerNewUser.bind(this);
   }
 
   registerNewUser() {
-    let setup_sn = document.getElementById('setup-sn');
-    let setup_email = document.getElementById('setup-email');
+    let _ = this;
+    _.setState({
+      setup_sn: document.getElementById('setup-sn').value,
+      setup_email: document.getElementById('setup-email').value
+    });
     FB.api('/me?fields=id,picture', function(response) {
       let fetchBody = {
         facebook_id: response.id,
         facebook_pic: response.picture.data.url,
-        screen_name: setup_sn.value,
-        email: setup_email.value
+        screen_name: _.state.setup_sn,
+        email: _.state.setup_email
       };
       let myHeaders = new Headers();
       myHeaders.append('Access-Control-Allow-Origin','*');
@@ -25,7 +31,7 @@ class Setup extends Component {
         method: 'POST',
         body: JSON.stringify(fetchBody),
         headers: myHeaders
-      }) 
+      })
         .then(response => {
           if (response.ok) {
             return response;
@@ -40,8 +46,8 @@ class Setup extends Component {
           }
         })
     });
-    setup_sn.value = '';
-    setup_email.value = '';
+    document.getElementById('setup-sn').value = '';
+    document.getElementById('setup-email').value = '';
   }
 
   render() {

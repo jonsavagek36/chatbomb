@@ -26731,7 +26731,10 @@
 
 	    var _this = _possibleConstructorReturn(this, (Setup.__proto__ || Object.getPrototypeOf(Setup)).call(this, props));
 
-	    _this.state = {};
+	    _this.state = {
+	      setup_sn: '',
+	      setup_email: ''
+	    };
 	    _this.registerNewUser = _this.registerNewUser.bind(_this);
 	    return _this;
 	  }
@@ -26739,14 +26742,17 @@
 	  _createClass(Setup, [{
 	    key: 'registerNewUser',
 	    value: function registerNewUser() {
-	      var setup_sn = document.getElementById('setup-sn');
-	      var setup_email = document.getElementById('setup-email');
+	      var _ = this;
+	      _.setState({
+	        setup_sn: document.getElementById('setup-sn').value,
+	        setup_email: document.getElementById('setup-email').value
+	      });
 	      FB.api('/me?fields=id,picture', function (response) {
 	        var fetchBody = {
 	          facebook_id: response.id,
 	          facebook_pic: response.picture.data.url,
-	          screen_name: setup_sn.value,
-	          email: setup_email.value
+	          screen_name: _.state.setup_sn,
+	          email: _.state.setup_email
 	        };
 	        var myHeaders = new Headers();
 	        myHeaders.append('Access-Control-Allow-Origin', '*');
@@ -26769,8 +26775,8 @@
 	          }
 	        });
 	      });
-	      setup_sn.value = '';
-	      setup_email.value = '';
+	      document.getElementById('setup-sn').value = '';
+	      document.getElementById('setup-email').value = '';
 	    }
 	  }, {
 	    key: 'render',
