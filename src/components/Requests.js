@@ -1,9 +1,84 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 
 class Requests extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      requests: [],
+      request_email: '',
+      facebook_id: '',
+      request_status: ''
+    };
+  }
+
+  componentDidMount() {
+    let _ = this;
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        FB.api('/me?fields=id', function(response) {
+          _.setState({ facebook_id: response.id });
+          let fetchBody = {
+            facebook_id: response.id
+          };
+          let myHeaders = new Headers();
+          myHeaders.append('Access-Control-Allow-Origin','*');
+          myHeaders.append('Content-Type','application/json');
+          fetch(`http://localhost:3000/api/v1/requests/get_requests`, {
+            method: 'POST',
+            body: JSON.stringify(fetchBody),
+            headers: myHeaders
+          })
+            .then(response => {
+              if (response.ok) {
+                return response;
+              } else {
+                console.log('Failed to fetch requests.');
+              }
+            })
+            .then(response => response.json())
+            .then(data => {
+              _.setState({ requests: data.requests });
+            })
+        });
+      }
+    });
+  }
+
+  sendRequest() {
+    let _ = this;
+    _.setState({ request_email: document.getElementById('req-email').value });
+    let fetchBody = {
+      facebook_id: this.state.facebook_id,
+      request_email: this.state.request_email
+    };
+    let myHeaders = new Headers();
+    myHeaders.append('Access-Control-Allow-Origin','*');
+    myHeaders.append('Content-Type','application/json');
+    fetch(`http://localhost:3000/api/v1/requests/send_request`, {
+      method: 'POST',
+      body: JSON.stringify(fetchBody),
+      headers: myHeaders
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          console.log('Failed to send request.');
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success == true) {
+          _.setState({ request_status: 'Request sent.' });
+        } else {
+          _.setState({ request_status: 'User not found.' });
+        }
+      })
+  }
+
+  goBack() {
+    browserHistory.push('/chatbomb');
   }
 
   render() {
@@ -11,8 +86,21 @@ class Requests extends Component {
       <div>
         <div className='top'>
           CHATBOMB
+          <span className='menu'>
+            <button onClick={this.goBack}>Go Back</button>
+          </span>
         </div>
         <div id='main-div'>
+          <div id='requests'>
+          </div>
+          <div id='send-request'>
+            <form id='request-form'>
+              <div className='label'>User E-Mail:</div><div className='f-right'><input type='text' id='req-email' /></div>
+              <div className='label'><button>Send Request</button></div>
+            </form>
+            <div id='request-status'>
+            </div>
+          </div>
           <img src={'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png'} id='bomb-img' />
         </div>
       </div>

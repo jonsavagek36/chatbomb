@@ -58,7 +58,7 @@ class App extends Component {
           fetch(`http://localhost:3000/api/v1/users/sign_in`, {
             method: 'POST',
             body: JSON.stringify(fetchBody),
-            headers: myHeaders
+            headers: myHeaders 
           })
             .then(response => {
               if (response.ok) {
