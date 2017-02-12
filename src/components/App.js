@@ -273,7 +273,7 @@ class App extends Component {
       <div>
         <div className='top'>
           CHATBOMB <br />
-          <div className='points'>{this.state.points}</div>
+          <div className='points'>{this.state.points} Points</div>
           <div className='menu'>
             <button onClick={this.toRequests} className='menu-btn'>Requests</button>
             <button onClick={this.logoutUser} className='menu-btn-right'>Log Out</button>
