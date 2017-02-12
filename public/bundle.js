@@ -26583,6 +26583,87 @@
 	  }
 
 	  _createClass(Login, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _ = this;
+	      window.fbAsyncInit = function () {
+	        FB.init({
+	          appId: '206542439812995',
+	          cookie: true,
+	          xfbml: true,
+	          version: 'v2.8'
+	        });
+	        FB.getLoginStatus(function (response) {
+	          if (response.status === 'connected') {
+	            FB.api('/me?fields=id', function (response) {
+	              var fb_id = response.id;
+	              var fetchBody = {
+	                facebook_id: fb_id
+	              };
+	              var myHeaders = new Headers();
+	              myHeaders.append('Access-Control-Allow-Origin', '*');
+	              myHeaders.append('Content-Type', 'application/json');
+	              fetch('http://localhost:3000/api/v1/users/new_user', {
+	                method: 'POST',
+	                body: JSON.stringify(fetchBody),
+	                headers: myHeaders
+	              }).then(function (response) {
+	                if (response.ok) {
+	                  return response;
+	                } else {
+	                  console.log('New User Check failed.');
+	                }
+	              }).then(function (response) {
+	                return response.json();
+	              }).then(function (data) {
+	                if (data.new_user == true) {
+	                  _reactRouter.browserHistory.push('/setup');
+	                } else {
+	                  _reactRouter.browserHistory.push('/chatbomb');
+	                }
+	              });
+	            });
+	          }
+	        });
+	      };
+	    }
+	  }, {
+	    key: 'userLogin',
+	    value: function userLogin() {
+	      FB.login(function (response) {
+	        if (response.status === 'connected') {
+	          FB.api('/me?fields=id', function (response) {
+	            var fb_id = response.id;
+	            var fetchBody = {
+	              facebook_id: fb_id
+	            };
+	            var myHeaders = new Headers();
+	            myHeaders.append('Access-Control-Allow-Origin', '*');
+	            myHeaders.append('Content-Type', 'application/json');
+	            fetch('http://localhost:3000/api/v1/users/new_user', {
+	              method: 'POST',
+	              body: JSON.stringify(fetchBody),
+	              headers: myHeaders
+	            }).then(function (response) {
+	              if (response.ok) {
+	                return response;
+	              } else {
+	                console.log('New User Check failed.');
+	              }
+	            }).then(function (response) {
+	              return response.json();
+	            }).then(function (data) {
+	              if (data.new_user == true) {
+	                _reactRouter.browserHistory.push('/setup');
+	              } else {
+	                _reactRouter.browserHistory.push('/chatbomb');
+	              }
+	            });
+	          });
+	        }
+	      }, { scope: 'public_profile' });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -26601,41 +26682,8 @@
 	            { id: 'fb-login' },
 	            _react2.default.createElement(
 	              'a',
-	              { href: '#' },
+	              { href: '#', onClick: this.userLogin },
 	              _react2.default.createElement('img', { src: 'http://www.freeiconspng.com/uploads/facebook-login-button-png-11.png', id: 'login-img' })
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { id: 'setup-form' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'label' },
-	              'Screen Name:'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'f-right' },
-	              _react2.default.createElement('input', { type: 'text', id: 'setup-sn' })
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'label' },
-	              'E-Mail:'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'f-right' },
-	              _react2.default.createElement('input', { type: 'text', id: 'setup-email' })
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'label' },
-	              _react2.default.createElement(
-	                'button',
-	                { id: 'setup-submit' },
-	                'Submit'
-	              )
 	            )
 	          ),
 	          _react2.default.createElement('img', { src: 'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png', id: 'bomb-img' })
@@ -26683,11 +26731,54 @@
 
 	    var _this = _possibleConstructorReturn(this, (Setup.__proto__ || Object.getPrototypeOf(Setup)).call(this, props));
 
-	    _this.state = {};
+	    _this.state = {
+	      setup_sn: '',
+	      setup_email: ''
+	    };
+	    _this.registerNewUser = _this.registerNewUser.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(Setup, [{
+	    key: 'registerNewUser',
+	    value: function registerNewUser() {
+	      var _ = this;
+	      _.setState({
+	        setup_sn: document.getElementById('setup-sn').value,
+	        setup_email: document.getElementById('setup-email').value
+	      });
+	      FB.api('/me?fields=id,picture', function (response) {
+	        var fetchBody = {
+	          facebook_id: response.id,
+	          facebook_pic: response.picture.data.url,
+	          screen_name: _.state.setup_sn,
+	          email: _.state.setup_email
+	        };
+	        var myHeaders = new Headers();
+	        myHeaders.append('Access-Control-Allow-Origin', '*');
+	        myHeaders.append('Content-Type', 'application/json');
+	        fetch('http://localhost:3000/api/v1/users/register', {
+	          method: 'POST',
+	          body: JSON.stringify(fetchBody),
+	          headers: myHeaders
+	        }).then(function (response) {
+	          if (response.ok) {
+	            return response;
+	          } else {
+	            console.log('Failed to register new user.');
+	          }
+	        }).then(function (response) {
+	          return response.json();
+	        }).then(function (data) {
+	          if (data.success == true) {
+	            _reactRouter.browserHistory.push('/chatbomb');
+	          }
+	        });
+	      });
+	      document.getElementById('setup-sn').value = '';
+	      document.getElementById('setup-email').value = '';
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -26706,7 +26797,7 @@
 	            { id: 'setup-form' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'f-left' },
+	              { className: 'label' },
 	              'Screen Name:'
 	            ),
 	            _react2.default.createElement(
@@ -26716,13 +26807,22 @@
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'f-left' },
+	              { className: 'label' },
 	              'E-Mail:'
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'f-right' },
 	              _react2.default.createElement('input', { type: 'text', id: 'setup-email' })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'label' },
+	              _react2.default.createElement(
+	                'button',
+	                { id: 'setup-submit', onClick: this.registerNewUser },
+	                'Submit'
+	              )
 	            )
 	          ),
 	          _react2.default.createElement('img', { src: 'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png', id: 'bomb-img' })
@@ -26820,7 +26920,47 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      // INIT
-	      // this.clientInit();
+	      var _ = this;
+	      FB.getLoginStatus(function (response) {
+	        if (response.status === 'connected') {
+	          FB.api('/me?fields=id', function (response) {
+	            var fetchBody = {
+	              facebook_id: response.id
+	            };
+	            var myHeaders = new Headers();
+	            myHeaders.append('Access-Control-Allow-Origin', '*');
+	            myHeaders.append('Content-Type', 'application/json');
+	            fetch('http://localhost:3000/api/v1/users/sign_in', {
+	              method: 'POST',
+	              body: JSON.stringify(fetchBody),
+	              headers: myHeaders
+	            }).then(function (response) {
+	              if (response.ok) {
+	                return response;
+	              } else {
+	                console.log('Failed to sign in.');
+	              }
+	            }).then(function (response) {
+	              return response.json();
+	            }).then(function (data) {
+	              console.log(data);
+	              // if (data.success) {
+	              //   let user = {
+	              //     id: data.id,
+	              //     facebook_pic: data.facebook_pic,
+	              //     screen_name: data.screen_name,
+	              //     email: data.email
+	              //   };
+	              //   _.setState({ profile: user });
+	              //   _.clientInit();
+	              // } else {
+	              //   browserHistory.push('/setup');
+	              // }
+	            });
+	          });
+	        }
+	      });
+
 	      // INCOMING EVENTS
 	      socket.on('connect:good', this.goodConnect);
 	      socket.on('test:message', this.testMessage);
