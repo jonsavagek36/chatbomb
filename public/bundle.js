@@ -27191,7 +27191,8 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'points' },
-	            this.state.points
+	            this.state.points,
+	            ' Points'
 	          ),
 	          _react2.default.createElement(
 	            'div',
