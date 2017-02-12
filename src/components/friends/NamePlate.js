@@ -13,6 +13,7 @@ class NamePlate extends Component {
     }
     return (
       <div className={this.props.newClass} onClick={this.props.selectFriend}>
+        <img src={this.props.friend.facebook_pic} className='user-pic' />
         {this.props.friend.screen_name}{bomb}
       </div>
     );
