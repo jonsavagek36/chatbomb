@@ -60,14 +60,24 @@ body {
   left: 15px;
 }
 .points {
+  position: absolute;
   float: right;
-  right: 20px;
+  clear: right;
+  left: 500px;
   top: 10px;
 }
 .top-btn {
   background-color: #D12F00;
   border: #D12F00 solid 1px;
   color: #FB5555;
+}
+.menu {
+  position: relative;
+  padding: 10px 10px;
+  width: 400px;
+  height: 100px;
+  top: 10px;
+  left: 200px;
 }
 
 #chat-box {
@@ -137,24 +147,28 @@ body {
 }
 
 #send-chat {
-  height: 34px;
-  width: 335px;
+  position: absolute;
+  height: 25px;
+  width: 342px;
   border: #D12F00 solid 1px;
   margin: 0px;
   font-size: 14px;
   font-family: "Futura", sans-serif;
   left : 1px;
+  bottom: 0px;
+  float: left;
 }
 
 #send-btn {
-  height: 38px;
-  width: 53px;
-  bottom: 1px;
+  position: absolute;
+  float: right;
+  height: 29px;
+  right: 1px;
+  bottom: 0px;
   border: #D12F00 solid 2px;
-  background-color: #FFFFFF;
-  color: #D12F00;
+  background-color: #D12F00;
+  color: #FFFFFF;
   margin: 0px;
-  margin-left: 1px;
 }
 
 #friend-list {
@@ -235,4 +249,47 @@ body {
 
 .no-bullets {
   list-style-type: none;
+}
+
+.menu-btn {
+  display: inline-block;
+  position: relative;
+  float: left;
+  margin: 0px;
+  height: 30px;
+  border: #FFFFFF solid 2px;
+  border-left: #FFFFFF solid 1px;
+  color: #FFFFFF;
+  background-color: #D12F00;
+}
+.menu-btn-right {
+  display: inline-block;
+  position: absolute;
+  float: right;
+  margin: 0px;
+  height: 30px;
+  border: #FFFFFF solid 2px;
+  border-left: #FFFFFF solid 1px;
+  color: #FFFFFF;
+  background-color: #D12F00;
+}
+.send-request {
+  position: relative;
+  top: 15px;
+  display: block;
+}
+.request-form {
+  float: right;
+  display: inline-block;
+}
+.menu-btn-rr {
+  display: inline-block;
+  position: relative;
+  float: right;
+  margin: 0px;
+  height: 30px;
+  border: #FFFFFF solid 2px;
+  border-left: #FFFFFF solid 1px;
+  color: #FFFFFF;
+  background-color: #D12F00;
 }

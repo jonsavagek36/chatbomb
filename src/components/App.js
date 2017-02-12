@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 
 import ChatBox from './ChatBox';
 import Friendlist from './Friendlist';
@@ -58,7 +58,7 @@ class App extends Component {
           fetch(`http://localhost:3000/api/v1/users/sign_in`, {
             method: 'POST',
             body: JSON.stringify(fetchBody),
-            headers: myHeaders 
+            headers: myHeaders
           })
             .then(response => {
               if (response.ok) {
@@ -273,11 +273,11 @@ class App extends Component {
       <div>
         <div className='top'>
           CHATBOMB <br />
-          <span className='points'>{this.state.points}</span>
-          <span className='menu'>
-            <button onClick={this.toRequests}>Requests</button>
-            <button onClick={this.logoutUser}>Log Out</button>
-          </span>
+          <div className='points'>{this.state.points}</div>
+          <div className='menu'>
+            <button onClick={this.toRequests} className='menu-btn'>Requests</button>
+            <button onClick={this.logoutUser} className='menu-btn-right'>Log Out</button>
+          </div>
         </div>
         <div id='main-div'>
           <ChatBox

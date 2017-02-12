@@ -5,7 +5,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import Login from './components/Login';
 import Setup from './components/Setup';
 import App from './components/App';
-import Requests from './component/Requests';
+import Requests from './components/Requests';
 
 ReactDOM.render(
   <Router history={browserHistory}>

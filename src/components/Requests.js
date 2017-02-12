@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
+import RequestList from './requests/RequestList';
 
 class Requests extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      requests: [],
+      requests: {},
       request_email: '',
       facebook_id: '',
-      request_status: ''
+      send_status: '',
+      accept_status: ''
     };
   }
 
@@ -69,11 +71,33 @@ class Requests extends Component {
       })
       .then(response => response.json())
       .then(data => {
-        if (data.success == true) {
-          _.setState({ request_status: 'Request sent.' });
+        _.setState({ request_status: data.message });
+      })
+  }
+
+  acceptRequest(id) {
+    let _ = this;
+    let fetchBody = {
+      request_id: id
+    };
+    let myHeaders = new Headers();
+    myHeaders.append('Access-Control-Allow-Origin','*');
+    myHeaders.append('Content-Type','application/json');
+    fetch(`http://localhost:3000/api/v1/requests/accept_request`, {
+      method: 'POST',
+      body: JSON.stringify(fetchBody),
+      headers: myHeaders
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
         } else {
-          _.setState({ request_status: 'User not found.' });
+          console.log('Failed to accept request.');
         }
+      })
+      .then(response => response.json())
+      .then(data => {
+        _.setState({ accept_status: data.message });
       })
   }
 
@@ -86,17 +110,19 @@ class Requests extends Component {
       <div>
         <div className='top'>
           CHATBOMB
-          <span className='menu'>
-            <button onClick={this.goBack}>Go Back</button>
-          </span>
+          <div className='menu'>
+            <button onClick={this.goBack} className='menu-btn'>Go Back</button>
+          </div>
         </div>
         <div id='main-div'>
-          <div id='requests'>
-          </div>
+          <RequestList
+            requests={this.state.requests}
+            acceptRequest={this.acceptRequest}
+              />
           <div id='send-request'>
             <form id='request-form'>
               <div className='label'>User E-Mail:</div><div className='f-right'><input type='text' id='req-email' /></div>
-              <div className='label'><button>Send Request</button></div>
+              <div className='label'><button onClick={this.sendRequest} className='menu-btn-rr'>Send Request</button></div>
             </form>
             <div id='request-status'>
             </div>
