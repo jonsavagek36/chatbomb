@@ -6,7 +6,7 @@ import Friendlist from './Friendlist';
 
 import io from 'socket.io-client';
 
-let socket = io.connect('https://cbomb.herokuapp.com');
+let socket = io.connect('https://cbomb.herokuapp.com', { secure: true });
 
 class App extends Component {
   constructor(props) {
