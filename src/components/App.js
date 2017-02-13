@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import ChatBox from './ChatBox';
 import Friendlist from './Friendlist';
 
-let socket = io.connect();
+let socket = io.connect('https://cbomb.herokuapp.com');
 
 class App extends Component {
   constructor(props) {
