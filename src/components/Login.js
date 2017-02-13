@@ -26,7 +26,7 @@ class Login extends Component {
             let myHeaders = new Headers();
             myHeaders.append('Access-Control-Allow-Origin','*');
             myHeaders.append('Content-Type','application/json');
-            fetch(`http://localhost:3000/api/v1/users/new_user`, {
+            fetch(`https://chatbomb-api.herokuapp.com/api/v1/users/new_user`, {
               method: 'POST',
               body: JSON.stringify(fetchBody),
               headers: myHeaders
@@ -63,7 +63,7 @@ class Login extends Component {
           let myHeaders = new Headers();
           myHeaders.append('Access-Control-Allow-Origin','*');
           myHeaders.append('Content-Type','application/json');
-          fetch(`http://localhost:3000/api/v1/users/new_user`, {
+          fetch(`https://chatbomb-api.herokuapp.com/api/v1/users/new_user`, {
             method: 'POST',
             body: JSON.stringify(fetchBody),
             headers: myHeaders

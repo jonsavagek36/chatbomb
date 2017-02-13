@@ -6,7 +6,7 @@ import Friendlist from './Friendlist';
 
 import io from 'socket.io-client';
 
-let socket = io.connect('http://localhost:5000');
+let socket = io.connect('https://cbomb.herokuapp.com');
 
 class App extends Component {
   constructor(props) {
@@ -55,7 +55,7 @@ class App extends Component {
           let myHeaders = new Headers();
           myHeaders.append('Access-Control-Allow-Origin','*');
           myHeaders.append('Content-Type','application/json');
-          fetch(`http://localhost:3000/api/v1/users/sign_in`, {
+          fetch(`https://chatbomb-api.herokuapp.com/api/v1/users/sign_in`, {
             method: 'POST',
             body: JSON.stringify(fetchBody),
             headers: myHeaders
