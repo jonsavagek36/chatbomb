@@ -27,7 +27,7 @@ class Setup extends Component {
       let myHeaders = new Headers();
       myHeaders.append('Access-Control-Allow-Origin','*');
       myHeaders.append('Content-Type','application/json');
-      fetch(`http://localhost:3000/api/v1/users/register`, {
+      fetch(`https://chatbomb-api.herokuapp.com/api/v1/users/register`, {
         method: 'POST',
         body: JSON.stringify(fetchBody),
         headers: myHeaders
