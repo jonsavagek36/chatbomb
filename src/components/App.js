@@ -163,7 +163,7 @@ class App extends Component {
   }
 
   refreshRequest() {
-    if (this.state.friends.length > 0) {
+    if (this.state.friends != null) {
       socket.emit('friends:refresh', { friends: this.state.friends });
     }
   }
@@ -276,6 +276,7 @@ class App extends Component {
           <div className='points'>{this.state.points} Points</div>
           <div className='menu'>
             <button onClick={this.toRequests} className='menu-btn'>Requests</button>
+            <button onClick={this.refreshRequest} className='menu-btn'>Refresh Friends</button>
             <button onClick={this.logoutUser} className='menu-btn-right'>Log Out</button>
           </div>
         </div>
