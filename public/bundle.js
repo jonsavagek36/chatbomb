@@ -27055,7 +27055,7 @@
 	  }, {
 	    key: 'refreshRequest',
 	    value: function refreshRequest() {
-	      if (this.state.friends.length > 0) {
+	      if (this.state.friends != null) {
 	        socket.emit('friends:refresh', { friends: this.state.friends });
 	      }
 	    }
@@ -27201,6 +27201,11 @@
 	              'button',
 	              { onClick: this.toRequests, className: 'menu-btn' },
 	              'Requests'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.refreshRequest, className: 'menu-btn' },
+	              'Refresh Friends'
 	            ),
 	            _react2.default.createElement(
 	              'button',
