@@ -26688,7 +26688,7 @@
 	            _react2.default.createElement(
 	              'a',
 	              { href: '#', onClick: this.userLogin },
-	              _react2.default.createElement('img', { src: '//www.freeiconspng.com/uploads/facebook-login-button-png-11.png', id: 'login-img' })
+	              _react2.default.createElement('img', { src: 'https://i.stack.imgur.com/SoLOz.png', id: 'login-img' })
 	            )
 	          ),
 	          _react2.default.createElement('img', { src: '//www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png', id: 'bomb-img' })
