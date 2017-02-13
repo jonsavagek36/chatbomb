@@ -8,7 +8,7 @@ Chatbomb is an instant messenging app that turns chatting into a game through va
    various amounts of points on abilities such as extending the time limit on replies, or potentially to erase the
    entire conversation at will.</li>
 </ol>
-The app consists of two Heroku deploys:
+The app consists of two Heroku deploys:<br />
 1) The ReactJS/Node front-end.
 <ul>
 <li>Facebook (JavaScript) SDK and Web API handle logging in and passing profile pics.</li>
