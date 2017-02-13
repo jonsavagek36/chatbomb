@@ -8,23 +8,25 @@ class RequestList extends Component {
 
   render() {
     let requests = null;
-    // if (this.props.requests != null) {
-    //   requests = this.props.requests.map((request, idx) => {
-    //     let acceptRequest = () => {
-    //       this.props.acceptRequest(request.id);
-    //     }
-    //     return (
-    //       <li className='request-li' key={idx}>
-    //         <img src={request.facebook_pic} className='user-pic' />
-    //           {request.screen_name}
-    //           <button onClick={acceptRequest}>ACCEPT</button>
-    //       </li>
-    //     );
-    //   });
-    // }
+    if (this.props.requests != null) {
+      requests = this.props.requests.map((request, idx) => {
+        let acceptRequest = () => {
+          this.props.acceptRequest(request.request_id);
+        }
+        return (
+          <li className='request-li' key={idx}>
+            <img src={request.requester.facebook_pic} className='user-pic' />
+              {request.requester.screen_name}
+              <button onClick={acceptRequest}>ACCEPT</button>
+          </li>
+        );
+      });
+    }
     return (
       <div id='request-list'>
-        {requests}
+        <ul>
+          {requests}
+        </ul>
       </div>
     );
   }

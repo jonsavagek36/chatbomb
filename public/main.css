@@ -274,6 +274,9 @@ body {
   color: #FFFFFF;
   background-color: #D12F00;
 }
+#request-list {
+  list-style-type: none;
+}
 .send-request {
   position: relative;
   top: 15px;
