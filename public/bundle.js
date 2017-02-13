@@ -27914,11 +27914,10 @@
 	    var _this = _possibleConstructorReturn(this, (Requests.__proto__ || Object.getPrototypeOf(Requests)).call(this, props));
 
 	    _this.state = {
-	      requests: {},
+	      requests: [],
 	      request_email: '',
 	      facebook_id: '',
-	      send_status: '',
-	      accept_status: ''
+	      request_status: ''
 	    };
 	    return _this;
 	  }
@@ -27937,7 +27936,7 @@
 	            var myHeaders = new Headers();
 	            myHeaders.append('Access-Control-Allow-Origin', '*');
 	            myHeaders.append('Content-Type', 'application/json');
-	            fetch('http://localhost:3000/api/v1/requests/get_requests', {
+	            fetch('https://cbomb.herokuapp.com/api/v1/requests/get_requests', {
 	              method: 'POST',
 	              body: JSON.stringify(fetchBody),
 	              headers: myHeaders
@@ -27968,7 +27967,7 @@
 	      var myHeaders = new Headers();
 	      myHeaders.append('Access-Control-Allow-Origin', '*');
 	      myHeaders.append('Content-Type', 'application/json');
-	      fetch('http://localhost:3000/api/v1/requests/send_request', {
+	      fetch('https://cbomb.herokuapp.com/api/v1/requests/send_request', {
 	        method: 'POST',
 	        body: JSON.stringify(fetchBody),
 	        headers: myHeaders
@@ -27994,7 +27993,7 @@
 	      var myHeaders = new Headers();
 	      myHeaders.append('Access-Control-Allow-Origin', '*');
 	      myHeaders.append('Content-Type', 'application/json');
-	      fetch('http://localhost:3000/api/v1/requests/accept_request', {
+	      fetch('https://cbomb.herokuapp.com/api/v1/requests/accept_request', {
 	        method: 'POST',
 	        body: JSON.stringify(fetchBody),
 	        headers: myHeaders
@@ -28007,7 +28006,7 @@
 	      }).then(function (response) {
 	        return response.json();
 	      }).then(function (data) {
-	        _.setState({ accept_status: data.message });
+	        _.setState({ request_status: data.message });
 	      });
 	    }
 	  }, {
@@ -28068,7 +28067,11 @@
 	                )
 	              )
 	            ),
-	            _react2.default.createElement('div', { id: 'request-status' })
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'request-status' },
+	              this.state.request_status
+	            )
 	          ),
 	          _react2.default.createElement('img', { src: 'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png', id: 'bomb-img' })
 	        )
@@ -28120,25 +28123,35 @@
 	  _createClass(RequestList, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var requests = null;
-	      // if (this.props.requests != null) {
-	      //   requests = this.props.requests.map((request, idx) => {
-	      //     let acceptRequest = () => {
-	      //       this.props.acceptRequest(request.id);
-	      //     }
-	      //     return (
-	      //       <li className='request-li' key={idx}>
-	      //         <img src={request.facebook_pic} className='user-pic' />
-	      //           {request.screen_name}
-	      //           <button onClick={acceptRequest}>ACCEPT</button>
-	      //       </li>
-	      //     );
-	      //   });
-	      // }
+	      if (this.props.requests != null) {
+	        requests = this.props.requests.map(function (request, idx) {
+	          var acceptRequest = function acceptRequest() {
+	            _this2.props.acceptRequest(request.request_id);
+	          };
+	          return _react2.default.createElement(
+	            'li',
+	            { className: 'request-li', key: idx },
+	            _react2.default.createElement('img', { src: request.requester.facebook_pic, className: 'user-pic' }),
+	            request.requester.screen_name,
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: acceptRequest },
+	              'ACCEPT'
+	            )
+	          );
+	        });
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'request-list' },
-	        requests
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          requests
+	        )
 	      );
 	    }
 	  }]);
