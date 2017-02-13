@@ -6,11 +6,10 @@ class Requests extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      requests: {},
+      requests: [],
       request_email: '',
       facebook_id: '',
-      send_status: '',
-      accept_status: ''
+      request_status: ''
     };
   }
 
@@ -26,7 +25,7 @@ class Requests extends Component {
           let myHeaders = new Headers();
           myHeaders.append('Access-Control-Allow-Origin','*');
           myHeaders.append('Content-Type','application/json');
-          fetch(`http://localhost:3000/api/v1/requests/get_requests`, {
+          fetch(`https://cbomb.herokuapp.com/api/v1/requests/get_requests`, {
             method: 'POST',
             body: JSON.stringify(fetchBody),
             headers: myHeaders
@@ -57,7 +56,7 @@ class Requests extends Component {
     let myHeaders = new Headers();
     myHeaders.append('Access-Control-Allow-Origin','*');
     myHeaders.append('Content-Type','application/json');
-    fetch(`http://localhost:3000/api/v1/requests/send_request`, {
+    fetch(`https://cbomb.herokuapp.com/api/v1/requests/send_request`, {
       method: 'POST',
       body: JSON.stringify(fetchBody),
       headers: myHeaders
@@ -83,7 +82,7 @@ class Requests extends Component {
     let myHeaders = new Headers();
     myHeaders.append('Access-Control-Allow-Origin','*');
     myHeaders.append('Content-Type','application/json');
-    fetch(`http://localhost:3000/api/v1/requests/accept_request`, {
+    fetch(`https://cbomb.herokuapp.com/api/v1/requests/accept_request`, {
       method: 'POST',
       body: JSON.stringify(fetchBody),
       headers: myHeaders
@@ -97,7 +96,7 @@ class Requests extends Component {
       })
       .then(response => response.json())
       .then(data => {
-        _.setState({ accept_status: data.message });
+        _.setState({ request_status: data.message });
       })
   }
 
@@ -125,6 +124,7 @@ class Requests extends Component {
               <div className='label'><button onClick={this.sendRequest} className='menu-btn-rr'>Send Request</button></div>
             </form>
             <div id='request-status'>
+              {this.state.request_status}
             </div>
           </div>
           <img src={'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png'} id='bomb-img' />
