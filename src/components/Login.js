@@ -26,7 +26,7 @@ class Login extends Component {
             let myHeaders = new Headers();
             myHeaders.append('Access-Control-Allow-Origin','*');
             myHeaders.append('Content-Type','application/json');
-            fetch(`https://chatbomb-api.herokuapp.com/api/v1/users/new_user`, {
+            fetch(`//chatbomb-api.herokuapp.com/api/v1/users/new_user`, {
               method: 'POST',
               body: JSON.stringify(fetchBody),
               headers: myHeaders
@@ -63,7 +63,7 @@ class Login extends Component {
           let myHeaders = new Headers();
           myHeaders.append('Access-Control-Allow-Origin','*');
           myHeaders.append('Content-Type','application/json');
-          fetch(`https://chatbomb-api.herokuapp.com/api/v1/users/new_user`, {
+          fetch(`//chatbomb-api.herokuapp.com/api/v1/users/new_user`, {
             method: 'POST',
             body: JSON.stringify(fetchBody),
             headers: myHeaders
@@ -97,10 +97,10 @@ class Login extends Component {
         <div id='main-div'>
           <div id='fb-login'>
             <a href='#' onClick={this.userLogin}>
-              <img src={'https://www.freeiconspng.com/uploads/facebook-login-button-png-11.png'} id='login-img' />
+              <img src={'//www.freeiconspng.com/uploads/facebook-login-button-png-11.png'} id='login-img' />
             </a>
           </div>
-          <img src={'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png'} id='bomb-img' />
+          <img src={'//www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png'} id='bomb-img' />
         </div>
       </div>
     );

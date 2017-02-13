@@ -55,7 +55,7 @@ class App extends Component {
           let myHeaders = new Headers();
           myHeaders.append('Access-Control-Allow-Origin','*');
           myHeaders.append('Content-Type','application/json');
-          fetch(`https://chatbomb-api.herokuapp.com/api/v1/users/sign_in`, {
+          fetch(`//chatbomb-api.herokuapp.com/api/v1/users/sign_in`, {
             method: 'POST',
             body: JSON.stringify(fetchBody),
             headers: myHeaders
@@ -290,7 +290,7 @@ class App extends Component {
             liveMessages={this.state.liveMessages}
             removeLiveMessage={this.removeLiveMessage}
               />
-          <img src={'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png'} id='bomb-img' />
+          <img src={'//www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png'} id='bomb-img' />
           <Friendlist
             profile={this.state.profile}
             online_friends={this.state.online_friends}
