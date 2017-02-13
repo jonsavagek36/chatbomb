@@ -1,20 +1,25 @@
 CHATBOMB v1.0: Exploring how technology changes the way we communicate.
 
 Chatbomb is an instant messenging app that turns chatting into a game through various features:
-1) Unlike most texting/messenging, users can view what their friends are typing, letter by letter, as they type it.
-2) Once a message is viewed, users have only 30 seconds to reply.  Otherwise, the entire conversation is erased.
-3) For each reply received, users gain a point.  Once the feature is fully implemented, users will be able to spend
+<ol>
+<li>Unlike most texting/messenging, users can view what their friends are typing, letter by letter, as they type it.</li>
+<li>Once a message is viewed, users have only 30 seconds to reply.  Otherwise, the entire conversation is erased.</li>
+<li>For each reply received, users gain a point.  Once the feature is fully implemented, users will be able to spend
    various amounts of points on abilities such as extending the time limit on replies, or potentially to erase the
-   entire conversation at will.
-
+   entire conversation at will.</li>
+</ol>
 The app consists of two Heroku deploys:
 1) The ReactJS/Node front-end.
-      - Facebook (JavaScript) SDK and Web API handle logging in and passing profile pics.
-      - React-Router handles swapping from Login to Setup to the App itself.
-      - My Express server and the ReactJS client utilize the Socket.io library for handling real-time communication.
+<ul>
+<li>Facebook (JavaScript) SDK and Web API handle logging in and passing profile pics.</li>
+<li>React-Router handles swapping from Login to Setup to the App itself.</li>
+<li>My Express server and the ReactJS client utilize the Socket.io library for handling real-time communication.</li>
+</ul>
 2) The Rails API back-end
-      - Custom routes and controller methods handle user lookup, new user creation, creating and retrieving friend requests, 
-         adding new friends and retrieving friend lists.
+<ul>
+<li>Custom routes and controller methods handle user lookup, new user creation, creating and retrieving friend requests, 
+adding new friends and retrieving friend lists.</li>
+</ul>
 
 User experience:
 <ol>
@@ -39,7 +44,9 @@ User experience:
     user's e-mail address.</li>
 </ol>   
 Soon to be implemented:
-1) The ability to actually spend the points earned on extending reply time limits or "Chatbombing" i.e. erasing the entire
-    conversation at will.
-2) A settings page where users can select from a group of Facebook photos, change their screen name, e-mail address, etc.
-3) The ability to search for other users without an exact e-mail address on the Requests page.
+<ol>
+<li>The ability to actually spend the points earned on extending reply time limits or "Chatbombing" i.e. erasing the entire
+conversation at will.</li>
+<li>A settings page where users can select from a group of Facebook photos, change their screen name, e-mail address, etc.</li>
+<li>The ability to search for other users without an exact e-mail address on the Requests page.</li>
+</ol>
