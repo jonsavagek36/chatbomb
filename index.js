@@ -12,3 +12,4 @@ let io = require('socket.io')(http);
 io.sockets.on('connection', function(socket) {
   chat.init(io, socket);
 });
+ 

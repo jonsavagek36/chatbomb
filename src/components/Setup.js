@@ -27,7 +27,7 @@ class Setup extends Component {
       let myHeaders = new Headers();
       myHeaders.append('Access-Control-Allow-Origin','*');
       myHeaders.append('Content-Type','application/json');
-      fetch(`https://chatbomb-api.herokuapp.com/api/v1/users/register`, {
+      fetch(`//chatbomb-api.herokuapp.com/api/v1/users/register`, {
         method: 'POST',
         body: JSON.stringify(fetchBody),
         headers: myHeaders
@@ -62,7 +62,7 @@ class Setup extends Component {
             <div className='label'>E-Mail:</div><div className='f-right'><input type='text' id='setup-email' /></div>
             <div className='label'><button id='setup-submit' onClick={this.registerNewUser}>Submit</button></div>
           </div>
-          <img src={'https://www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png'} id='bomb-img' />
+          <img src={'//www.goodfreephotos.com/albums/vector-images/black-bomb-vector-clipart.png'} id='bomb-img' />
         </div>
       </div>
     );
