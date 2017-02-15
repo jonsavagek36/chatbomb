@@ -17,7 +17,8 @@ class App extends Component {
       selectedFriend: {},
       conversations: {},
       liveMessages: [],
-      points: 0
+      points: 0,
+      refresh_id: ''
     };
 
     //REACT BINDS
@@ -97,6 +98,14 @@ class App extends Component {
     socket.on('receive:message', this.receiveMessage);
     socket.on('receive:live', this.receiveLiveChange);
     socket.on('bomb:chat', this.bombChat);
+
+    let intId = setInterval(this.refreshRequest, 2500);
+    this.setState({ refresh_id: intId });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.refresh_id);
+    this.setState({ refresh_id: '' });
   }
   // INCOMING FUNCTIONS
   goodConnect(data) {
