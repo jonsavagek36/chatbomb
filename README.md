@@ -1,5 +1,5 @@
 CHATBOMB v1.0: Exploring how technology affects the way we communicate.
-(Sidenote: For a much improved version, check out the https://github.com/jonsavagek36/chatbomb2 repo - I'm redoing Chatbomb from the ground up, getting rid of bugs, implementing all the features, dropping a separate Rails API and using MongoDB straight from the Express server, and refactoring a lot of the clunky code to increase run-time efficiency.)
+(Sidenote: For a much improved version, check out the https://github.com/jonsavagek36/chatbomb2.1 repo - I'm redoing Chatbomb from the ground up, getting rid of bugs, implementing all the features, dropping a separate Rails API and using MongoDB straight from the Express server, and refactoring a lot of the clunky code to increase run-time efficiency.)
 
 Chatbomb is an instant messenging app that turns chatting into a game through various features:
 <ol>
